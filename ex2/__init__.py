@@ -1,3 +1,4 @@
+from datetime import datetime
 from ex2 import fetcher
 
 CALL_COUNT = 10
@@ -11,8 +12,19 @@ def benchmark(num):
     :return: функцию обёртку
     """
     def wrapper(func):
-        # put your code here
-        pass
+        def inner(url):
+            total = None
+            for i in range(num):
+                start = datetime.now()
+                func(url)
+                score = datetime.now() - start
+                if total is None:
+                    total = score
+                else:
+                    total += score
+                print(f'{i + 1}: {score}')
+            print(f'avg: {(total / num)}')
+        return inner
     return wrapper
 
 

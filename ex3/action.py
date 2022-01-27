@@ -5,6 +5,15 @@ class BaseAction:
     def __repr__(self):
         return self.name
 
+    def __hash__(self):
+        return hash(self.name)
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __gt__(self, other):
+        return (self.name, other.name) in (('Rock', 'Scissors'), ('Scissors', 'Paper'), ('Paper', 'Rock'))
+
 
 class NothingAction(BaseAction):
     def __init__(self):
